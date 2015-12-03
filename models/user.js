@@ -5,8 +5,22 @@ var bcrypt = require('bcrypt');
 var eat = require('eat');
 
 var userSchema = new mongoose.Schema({
-  username: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  basic: {
+    username: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    password: {
+      type: String,
+      required: true
+    }
+  },
   email: String,
   token: String
 });

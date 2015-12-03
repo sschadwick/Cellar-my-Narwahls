@@ -22,6 +22,7 @@ itemsRoute.post('/items', jsonParser, function(req, res) {
   item.quantity = req.body.quantity;
   var newItem = new Item(item);
   newItem.save(function(err, data) {
+    if (err) return handleError.err500(err, res);
     responseHandler.send201(res, data);
   });
 });

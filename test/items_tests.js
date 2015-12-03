@@ -58,7 +58,7 @@ describe('items', function() {
       done();
     });
   });
-  
+
   it('should be able to remove an item', function(done) {
     chai.request(serverURL)
     .delete('/items/' + dummyItem)
