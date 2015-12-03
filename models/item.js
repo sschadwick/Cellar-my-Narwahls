@@ -5,7 +5,7 @@ var itemSchema = new mongoose.Schema({
   vintage: String,
   quantity: Number,
   upc: String,
-  uploadedBy: String
+  owner: String
 });
 
 module.exports = mongoose.model('Item', itemSchema);

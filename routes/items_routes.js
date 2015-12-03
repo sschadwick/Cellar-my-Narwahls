@@ -5,18 +5,21 @@ var jsonParser = require('body-parser').json();
 var Item = require(__dirname + '/../models/item');
 var handleError = require(__dirname + '/../lib/error_handler');
 var responseHandler = require(__dirname + '/../lib/response_handler');
+var eatauth = require(__dirname + '/../lib/eat_auth');
+var httpBasic = require(__dirname + '/../lib/http_basic');
 
 var itemsRoute = module.exports = exports = express.Router();
 
-itemsRoute.get('/items', function(req, res) {
-  Item.find({}, function(err, items) {
+itemsRoute.get('/items', eatauth, function(req, res) {
+  Item.find({owner: req.user.username}, function(err, items) {
     if (err) return handleError.err500(err, res);
     responseHandler.send200(res, items);
   });
 });
 
-itemsRoute.post('/items', jsonParser, function(req, res) {
+itemsRoute.post('/items', jsonParser, eatauth, function(req, res) {
   var item = {};
+  item.owner = req.user.username || 'Anonymous';
   item.itemName = req.body.itemName;
   item.vintage = req.body.vintage;
   item.quantity = req.body.quantity;
@@ -27,7 +30,7 @@ itemsRoute.post('/items', jsonParser, function(req, res) {
   });
 });
 
-itemsRoute.put('/items/:id', jsonParser, function(req, res) {
+itemsRoute.put('/items/:id', jsonParser, eatauth, function(req, res) {
   var updateItem = req.body;
   delete updateItem._id;
 
@@ -37,7 +40,7 @@ itemsRoute.put('/items/:id', jsonParser, function(req, res) {
   });
 });
 
-itemsRoute.delete('/items/:id', jsonParser, function(req, res) {
+itemsRoute.delete('/items/:id', jsonParser, eatauth, function(req, res) {
   Item.remove({_id: req.params.id}, function(err) {
     if (err) return handleError.err500(err, res);
     responseHandler.send200(res, 'deleted');
