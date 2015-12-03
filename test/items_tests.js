@@ -9,9 +9,9 @@ describe('items', function() {
   var dummyItem;
   before(function(done) {
     var testItem = new Item({
-      id: 12345,
       itemName: 'Michelob',
       vintage: '10 days',
+      quantity: 2
     });
     testItem.save(function(err, data) {
       dummyItem = data._id;
@@ -44,7 +44,20 @@ describe('items', function() {
     });
   });
 
-  it('should be able to update an item');
+  it('should be able to update an item', function(done) {
+    chai.request(serverURL)
+    .put('/items/' + dummyItem)
+    .send({
+      itemName: 'Michelob',
+      vintage: '10 days',
+      quantity: 12
+    })
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.msg.nModified).to.eql(1);
+      done();
+    });
+  });
   
   it('should be able to remove an item', function(done) {
     chai.request(serverURL)

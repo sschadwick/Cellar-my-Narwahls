@@ -10,7 +10,7 @@ var itemsRoute = module.exports = exports = express.Router();
 
 itemsRoute.get('/items', function(req, res) {
   Item.find({}, function(err, items) {
-    if (err) return handleError(err, res);
+    if (err) return handleError.err500(err, res);
     responseHandler.send200(res, items);
   });
 });
@@ -26,8 +26,14 @@ itemsRoute.post('/items', jsonParser, function(req, res) {
   });
 });
 
-itemsRoute.patch('/items/:id', jsonParser, function(req, res) {
-  //update an existing item (eg change quantity)
+itemsRoute.put('/items/:id', jsonParser, function(req, res) {
+  var updateItem = req.body;
+  delete updateItem._id;
+
+  Item.update({_id: req.params.id}, updateItem, function(err, data) {
+    if (err) return handleError.err500(err, res);
+    res.json({msg: data});
+  });
 });
 
 itemsRoute.delete('/items/:id', jsonParser, function(req, res) {
