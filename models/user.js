@@ -28,13 +28,13 @@ var userSchema = new mongoose.Schema({
 userSchema.methods.generateHash = function(password, callback) {
   bcrypt.hash(password, 8, function(err, hash) {
     if (err) return callback(err);
-    this.password = hash;
+    this.basic.password = hash;
     callback(null, hash);
   }.bind(this));
 };
 
 userSchema.methods.compareHash = function(password, callback) {
-  bcrypt.compare(password, this.password, callback);
+  bcrypt.compare(password, this.basic.password, callback);
 };
 
 userSchema.methods.generateToken = function(callback) {

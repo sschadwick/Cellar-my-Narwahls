@@ -27,6 +27,25 @@ describe('http basic: header authorization', function() {
 });
 
 describe('auth', function() {
+  before(function(done) { //add new user to database before tests
+    var user = new User();
+    user.username = 'testuser2';
+    user.basic.username = 'testuser2';
+    user.basic.password = 'foobar123';
+
+    user.generateHash(user.basic.password, function(err, res) {
+      if (err) throw err;
+      user.save(function(err, data) {
+        if (err) throw err;
+        user.generateToken(function(err, token) {
+          if (err) throw err;
+          this.token = token;
+          done();
+        }.bind(this));
+      }.bind(this));
+    }.bind(this));
+  });
+
   after(function(done) {
     mongoose.connection.db.dropDatabase(function() {
       done();
@@ -44,6 +63,30 @@ describe('auth', function() {
     });
   });
 
-  it('should signin an existing user');
-  it('should signout a user');
+  it('should signin an existing user', function(done) {
+    chai.request(serverURL)
+    .get('/signin')
+    .auth('testuser2', 'foobar123')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.token.length).to.be.above(0);
+      done();
+    });
+  });
+
+  describe('username must be unique', function() {
+    it('should return an error', function(done) { //add new user to database before tests
+      var user = new User();
+      user.username = 'testuser2'; //this user should already exist according to signup route
+      user.basic.username = 'testuser2';
+      user.generateHash('foobar123', function(err, res) {
+        if (err) throw err;
+        user.save(function(err, data) {
+          expect(err.code).to.eql(11000); //err code key already exists in db
+          done();
+        }.bind(this));
+      }.bind(this));
+    });
+  });
+
 });
