@@ -3,8 +3,21 @@ var http = require('chai-http');
 chai.use(http);
 var expect = chai.expect;
 var serverURL = 'http://localhost:3000/cellar';
+var Item = require(__dirname + '/../models/item');
 
 describe('items', function() {
+  var dummyItem;
+  before(function(done) {
+    var testItem = new Item({
+      id: 12345,
+      itemName: 'Michelob',
+      vintage: '10 days',
+    });
+    testItem.save(function(err, data) {
+      dummyItem = data._id;
+      done();
+    });
+  });
 
   it('should be able to get a list of all items', function(done) {
     chai.request(serverURL)
@@ -21,7 +34,7 @@ describe('items', function() {
     .post('/items')
     .send({
       itemName: 'Bourbon County',
-      vintage: 2014,
+      vintage: '2014',
       quantity: 4
     })
     .end(function(err, res) {
@@ -33,5 +46,14 @@ describe('items', function() {
 
   it('should be able to update an item');
   
-  it('should be able to remove an item');
+  it('should be able to remove an item', function(done) {
+    chai.request(serverURL)
+    .delete('/items/' + dummyItem)
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.msg).to.eql('deleted');
+      done();
+    });
+  });
+
 });

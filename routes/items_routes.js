@@ -22,7 +22,7 @@ itemsRoute.post('/items', jsonParser, function(req, res) {
   item.quantity = req.body.quantity;
   var newItem = new Item(item);
   newItem.save(function(err, data) {
-    responseHandler.send200(res, data);
+    responseHandler.send201(res, data);
   });
 });
 
@@ -30,6 +30,9 @@ itemsRoute.patch('/items/:id', jsonParser, function(req, res) {
   //update an existing item (eg change quantity)
 });
 
-itemsRoute.delete('/items/:id', function(req, res) {
-  //remove an item from the cellar
+itemsRoute.delete('/items/:id', jsonParser, function(req, res) {
+  Item.remove({_id: req.params.id}, function(err) {
+    if (err) return handleError.err500(err, res);
+    responseHandler.send200(res, 'deleted');
+  });
 });
