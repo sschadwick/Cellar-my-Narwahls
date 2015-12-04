@@ -4,7 +4,7 @@ chai.use(http);
 var expect = chai.expect;
 
 var mongoose = require('mongoose');
-process.env.MONGO_URL = 'mongodb://localhost/review_test';
+process.env.MONGO_URL = 'mongodb://localhost/item_test';
 require(__dirname + '/../server');
 var serverURL = 'http://localhost:3000/cellar';
 var Item = require(__dirname + '/../models/item');
@@ -76,7 +76,7 @@ describe('items', function() {
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.msg.nModified).to.eql(1);
+      expect(res.body.msg.ok).to.eql(1);
       done();
     });
   });
