@@ -25,7 +25,6 @@ describe('items', function() {
     var user = new User();
     user.username = 'test';
     user.basic.username = 'test';
-    user.basic.password = 'foobar123'
     user.generateHash('foobar123', function(err, res) {
       if (err) throw err;
       user.save(function(err, data) {

@@ -9,6 +9,7 @@ process.env.APP_SECRET = process.env.APP_SECRET || 'needtochangethis';
 var itemsRouter = require(__dirname + '/routes/items_routes');
 var usersRouter = require(__dirname + '/routes/users_routes');
 
+app.use(express.static('public'));
 app.use('/cellar/', itemsRouter);
 app.use('/cellar/', usersRouter);
 
