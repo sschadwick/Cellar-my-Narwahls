@@ -11,7 +11,7 @@ var Item = require(__dirname + '/../models/item');
 var User = require(__dirname + '/../models/user');
 
 describe('items', function() {
-  var dummyItem;
+  var dummyId;
   before(function(done) {
     var testItem = new Item({
       itemName: 'Michelob',
@@ -19,7 +19,7 @@ describe('items', function() {
       quantity: 2
     });
     testItem.save(function(err, data) {
-      dummyItem = data._id;
+      dummyId = data._id;
     });
 
     var user = new User();
@@ -67,7 +67,7 @@ describe('items', function() {
 
   it('should be able to update an item', function(done) {
     chai.request(serverURL)
-    .put('/items/' + dummyItem)
+    .put('/items/' + dummyId)
     .set({token: this.token})
     .send({
       itemName: 'Michelob',
@@ -83,7 +83,7 @@ describe('items', function() {
 
   it('should be able to remove an item', function(done) {
     chai.request(serverURL)
-    .delete('/items/' + dummyItem)
+    .delete('/items/' + dummyId)
     .set({token: this.token})
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -91,5 +91,17 @@ describe('items', function() {
       done();
     });
   });
+});
 
+describe('Stats', function() {
+  it('should return a count of total items and users', function(done) {
+    chai.request(serverURL)
+    .get('/stats')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(typeof res.body.msg.itemCount).to.eql('number');
+      expect(typeof res.body.msg.userCount).to.eql('number');
+      done();
+    });
+  });
 });
