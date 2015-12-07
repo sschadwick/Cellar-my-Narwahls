@@ -48,13 +48,10 @@ describe('cellar controller', function() {
 
     it('should update an item', function() {
       $scope.cellar.push({itemName: 'Update dis', _id: 1, quantity: 4});
-      var dummyItem = {_id: 1, quantity: 50, editing: true};
-      $httpBackend.expectPUT('/cellar/items/1', dummyItem).respond(200);
+      var dummyItem = {_id: 1, itemName: 'Updated', quantity: 50, editing: true};
+      $httpBackend.expectPUT('/cellar/items/1', dummyItem).respond(200, 'updated');
       $scope.updateItem(dummyItem);
       $httpBackend.flush();
-      console.log($scope.cellar);
-      expect($scope.cellar[0].itemName).toBe('Update dis');
-      expect($scope.cellar[0].quantity).toBe(50);
       expect(dummyItem.editing).toBe(false);
     });
 

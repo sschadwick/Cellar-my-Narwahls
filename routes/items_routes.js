@@ -43,7 +43,7 @@ itemsRoute.put('/items/:id', jsonParser, eatauth, function(req, res) {
     data.quantity = updateItem.quantity;
     data.upc = updateItem.upc;
     data.save();
-    res.json({msg: data});
+    res.json({msg: 'updated'});
   });
 });
 

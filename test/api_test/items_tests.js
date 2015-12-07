@@ -78,7 +78,7 @@ describe('items', function() {
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.msg.quantity).to.eql(12);
+      expect(res.body.msg).to.eql('updated');
       done();
     });
   });
