@@ -27,7 +27,7 @@ module.exports = function(app) {
     };
 
     Resource.prototype.update = function(resource, callback) {
-      $http.put('/cellar/items/' + resource._id, resource)
+      $http.put('/cellar/' + this.resourceName + '/' + resource._id, resource)
         .then(handleSuccess(callback), handleFailure(callback));
     };
 

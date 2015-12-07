@@ -10,7 +10,7 @@ describe('resource service', function() {
   beforeEach(angular.mock.inject(function(Resource, _$httpBackend_) {
     ResourceService = Resource;
     $httpBackend = _$httpBackend_;
-    cellarResource = ResourceService('cellar');
+    cellarResource = ResourceService('items');
   }));
 
   afterEach(function() {

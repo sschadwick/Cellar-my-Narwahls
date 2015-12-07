@@ -90,8 +90,36 @@
 	      $httpBackend.expectGET('/cellar/items').respond(200, [{itemName: 'Wasser'}]);
 	      $scope.getAll();
 	      $httpBackend.flush();
-	      console.log($scope.cellar);
 	      expect($scope.cellar[0].itemName).toBe('Wasser');
+	    });
+
+	    it('should create a new item', function() {
+	      $httpBackend.expectPOST('/cellar/items').respond(200, {itemName: 'Brr', quantity: 2});
+	      $scope.createItem({itemName: 'Brr'});
+	      $httpBackend.flush();
+	      expect($scope.cellar[0].itemName).toBe('Brr');
+	    });
+
+	    // it('should update an item', function() {
+	    //   $scope.cellar.push({itemName: 'Update dis', _id: 1, quantity: 4});
+	    //   var dummyItem = {_id: 1, quantity: 50, editing: true};
+	    //   $httpBackend.expectPUT('/cellar/items/1', dummyItem).respond(200);
+	    //   $scope.updateItem(dummyItem);
+	    //   $httpBackend.flush();
+	    //   console.log($scope.cellar);
+	    //   expect($scope.cellar[0].itemName).toBe('Update dis');
+	    //   expect($scope.cellar[0].quantity).toBe(50);
+	    //   expect(dummyItem.editing).toBe(false);
+	    // });
+
+	    it('should delete an item', function() {
+	      $httpBackend.expectDELETE('/cellar/items/1').respond(200);
+	      var dummyItem = {itemName: 'Delete Me', _id: 1};
+	      $scope.cellar.push(dummyItem);
+	      $scope.removeItem(dummyItem);
+	      $httpBackend.flush();
+	      expect($scope.cellar.length).toBe(0);
+	      expect($scope.cellar.indexOf(dummyItem)).toBe(-1);
 	    });
 
 	  });
@@ -30694,7 +30722,7 @@
 	    };
 
 	    Resource.prototype.update = function(resource, callback) {
-	      $http.put('/cellar/items/' + resource._id, resource)
+	      $http.put('/cellar/' + this.resourceName + '/' + resource._id, resource)
 	        .then(handleSuccess(callback), handleFailure(callback));
 	    };
 
@@ -30760,7 +30788,7 @@
 	    };
 
 	    $scope.updateItem = function(item) {
-	      cellar.update(item, function(err) {
+	      cellarResource.update(item, function(err) {
 	        if (err) {return console.log(err);}
 	        item.editing = false;
 	      });
@@ -33460,7 +33488,7 @@
 	  beforeEach(angular.mock.inject(function(Resource, _$httpBackend_) {
 	    ResourceService = Resource;
 	    $httpBackend = _$httpBackend_;
-	    cellarResource = ResourceService('cellar');
+	    cellarResource = ResourceService('items');
 	  }));
 
 	  afterEach(function() {
@@ -33468,14 +33496,14 @@
 	    $httpBackend.verifyNoOutstandingRequest();
 	  });
 
-	  // it('should make a GET request', function() {
-	  //   $httpBackend.expectGET('/cellar/items').respond(200, [{itemName: 'Test brew', vintage: '1980', quantity: 1}]);
-	  //   cellarResource.getAll(function(err, data) {
-	  //     expect(err).toBe(null);
-	  //     expect(Array.isArray(data)).toBe(true);
-	  //   });
-	  //   $httpBackend.flush();
-	  // });
+	  it('should make a GET request', function() {
+	    $httpBackend.expectGET('/cellar/items').respond(200, [{itemName: 'Test brew', vintage: '1980', quantity: 1}]);
+	    cellarResource.getAll(function(err, data) {
+	      expect(err).toBe(null);
+	      expect(Array.isArray(data)).toBe(true);
+	    });
+	    $httpBackend.flush();
+	  });
 
 	});
 

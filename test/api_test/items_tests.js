@@ -54,6 +54,7 @@ describe('items', function() {
     .post('/items')
     .set({token: this.token})
     .send({
+      _id: 1,
       itemName: 'Bourbon County',
       vintage: '2014',
       quantity: 4
@@ -70,13 +71,14 @@ describe('items', function() {
     .put('/items/' + dummyId)
     .set({token: this.token})
     .send({
+      _id: 1,
       itemName: 'Michelob',
       vintage: '10 days',
       quantity: 12
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.msg.ok).to.eql(1);
+      expect(res.body.msg.quantity).to.eql(12);
       done();
     });
   });

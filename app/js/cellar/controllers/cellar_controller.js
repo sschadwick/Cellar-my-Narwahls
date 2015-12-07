@@ -34,7 +34,7 @@ module.exports = function(app) {
     };
 
     $scope.updateItem = function(item) {
-      cellar.update(item, function(err) {
+      cellarResource.update(item, function(err) {
         if (err) {return console.log(err);}
         item.editing = false;
       });

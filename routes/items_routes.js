@@ -21,7 +21,7 @@ itemsRoute.get('/items', eatauth, function(req, res) {
 
 itemsRoute.post('/items', jsonParser, eatauth, function(req, res) {
   var item = {};
-  item.owner = req.user.username || 'Anonymous';
+  item.owner = req.user.username;
   item.itemName = req.body.itemName;
   item.vintage = req.body.vintage;
   item.quantity = req.body.quantity;
@@ -36,8 +36,13 @@ itemsRoute.put('/items/:id', jsonParser, eatauth, function(req, res) {
   var updateItem = req.body;
   delete updateItem._id;
 
-  Item.update({_id: req.params.id}, updateItem, function(err, data) {
+  Item.findOne({_id: req.params.id}, function(err, data) {
     if (err) return handleError.err500(err, res);
+    data.itemName = updateItem.itemName;
+    data.vintage = updateItem.vintage;
+    data.quantity = updateItem.quantity;
+    data.upc = updateItem.upc;
+    data.save();
     res.json({msg: data});
   });
 });

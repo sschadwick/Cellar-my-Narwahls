@@ -36,15 +36,37 @@ describe('cellar controller', function() {
       $httpBackend.expectGET('/cellar/items').respond(200, [{itemName: 'Wasser'}]);
       $scope.getAll();
       $httpBackend.flush();
-      console.log($scope.cellar);
       expect($scope.cellar[0].itemName).toBe('Wasser');
     });
 
-    //create a new item
+    it('should create a new item', function() {
+      $httpBackend.expectPOST('/cellar/items').respond(200, {itemName: 'Brr', quantity: 2});
+      $scope.createItem({itemName: 'Brr'});
+      $httpBackend.flush();
+      expect($scope.cellar[0].itemName).toBe('Brr');
+    });
 
-    //update a current item
+    it('should update an item', function() {
+      $scope.cellar.push({itemName: 'Update dis', _id: 1, quantity: 4});
+      var dummyItem = {_id: 1, quantity: 50, editing: true};
+      $httpBackend.expectPUT('/cellar/items/1', dummyItem).respond(200);
+      $scope.updateItem(dummyItem);
+      $httpBackend.flush();
+      console.log($scope.cellar);
+      expect($scope.cellar[0].itemName).toBe('Update dis');
+      expect($scope.cellar[0].quantity).toBe(50);
+      expect(dummyItem.editing).toBe(false);
+    });
 
-    //delete an item
+    it('should delete an item', function() {
+      $httpBackend.expectDELETE('/cellar/items/1').respond(200);
+      var dummyItem = {itemName: 'Delete Me', _id: 1};
+      $scope.cellar.push(dummyItem);
+      $scope.removeItem(dummyItem);
+      $httpBackend.flush();
+      expect($scope.cellar.length).toBe(0);
+      expect($scope.cellar.indexOf(dummyItem)).toBe(-1);
+    });
 
   });
 });
