@@ -5,10 +5,10 @@ var expect = chai.expect;
 
 var mongoose = require('mongoose');
 process.env.MONGO_URL = 'mongodb://localhost/item_test';
-require(__dirname + '/../server');
+require(__dirname + '/../../server');
 var serverURL = 'http://localhost:3000/cellar';
-var Item = require(__dirname + '/../models/item');
-var User = require(__dirname + '/../models/user');
+var Item = require(__dirname + '/../../models/item');
+var User = require(__dirname + '/../../models/user');
 
 describe('items', function() {
   var dummyId;
