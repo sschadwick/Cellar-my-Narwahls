@@ -32,3 +32,4 @@ db
 .DS_Store
 npm-debug.log
 build
+test/**/*/test_bundle.js
