@@ -11,7 +11,7 @@ module.exports = function(cellarApp) {
       $location.path('/signin');
     };
 
-    $scope.getuserName = function(callback) {
+    $scope.getUserName = function(callback) {
       var eat = $cookies.get('eat');
       if (!(eat && eat.length)) {
         callback(new Error('not logged in'));
