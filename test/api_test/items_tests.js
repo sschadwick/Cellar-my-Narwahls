@@ -4,14 +4,14 @@ chai.use(http);
 var expect = chai.expect;
 
 var mongoose = require('mongoose');
-process.env.MONGO_URL = 'mongodb://localhost/review_test';
-require(__dirname + '/../server');
+process.env.MONGO_URL = 'mongodb://localhost/item_test';
+require(__dirname + '/../../server');
 var serverURL = 'http://localhost:3000/cellar';
-var Item = require(__dirname + '/../models/item');
-var User = require(__dirname + '/../models/user');
+var Item = require(__dirname + '/../../models/item');
+var User = require(__dirname + '/../../models/user');
 
 describe('items', function() {
-  var dummyItem;
+  var dummyId;
   before(function(done) {
     var testItem = new Item({
       itemName: 'Michelob',
@@ -19,13 +19,12 @@ describe('items', function() {
       quantity: 2
     });
     testItem.save(function(err, data) {
-      dummyItem = data._id;
+      dummyId = data._id;
     });
 
     var user = new User();
     user.username = 'test';
     user.basic.username = 'test';
-    user.basic.password = 'foobar123'
     user.generateHash('foobar123', function(err, res) {
       if (err) throw err;
       user.save(function(err, data) {
@@ -55,6 +54,7 @@ describe('items', function() {
     .post('/items')
     .set({token: this.token})
     .send({
+      _id: 1,
       itemName: 'Bourbon County',
       vintage: '2014',
       quantity: 4
@@ -68,23 +68,24 @@ describe('items', function() {
 
   it('should be able to update an item', function(done) {
     chai.request(serverURL)
-    .put('/items/' + dummyItem)
+    .put('/items/' + dummyId)
     .set({token: this.token})
     .send({
+      _id: 1,
       itemName: 'Michelob',
       vintage: '10 days',
       quantity: 12
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.msg.nModified).to.eql(1);
+      expect(res.body.msg).to.eql('updated');
       done();
     });
   });
 
   it('should be able to remove an item', function(done) {
     chai.request(serverURL)
-    .delete('/items/' + dummyItem)
+    .delete('/items/' + dummyId)
     .set({token: this.token})
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -92,5 +93,17 @@ describe('items', function() {
       done();
     });
   });
+});
 
+describe('Stats', function() {
+  it('should return a count of total items and users', function(done) {
+    chai.request(serverURL)
+    .get('/stats')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(typeof res.body.msg.itemCount).to.eql('number');
+      expect(typeof res.body.msg.userCount).to.eql('number');
+      done();
+    });
+  });
 });

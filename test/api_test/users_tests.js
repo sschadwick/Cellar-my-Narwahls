@@ -3,11 +3,11 @@ var http = require('chai-http');
 chai.use(http);
 var expect = chai.expect;
 process.env.MONGO_URL = 'mongodb://localhost/user_test';
-require(__dirname + '/../server');
+require(__dirname + '/../../server');
 var mongoose = require('mongoose');
-var User = require(__dirname + '/../models/user');
-var eatauth = require(__dirname + '/../lib/eat_auth');
-var httpBasic = require(__dirname + '/../lib/http_basic');
+var User = require(__dirname + '/../../models/user');
+var eatauth = require(__dirname + '/../../lib/eat_auth');
+var httpBasic = require(__dirname + '/../../lib/http_basic');
 var serverURL = 'http://localhost:3000/cellar';
 
 describe('http basic: header authorization', function() {
@@ -90,3 +90,4 @@ describe('auth', function() {
   });
 
 });
+

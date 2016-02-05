@@ -41,3 +41,7 @@ usersRoute.get('/signin', httpBasic, function(req, res) {
     });
   });
 });
+
+usersRoute.get('/username', jsonParser, eatauth, function(req, res) {
+  res.json({username: req.user.username});
+});
