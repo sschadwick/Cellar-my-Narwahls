@@ -10,18 +10,34 @@ import Foundation
 
 class CellarAPIService {
     
-    static let cellarAPIBaseUrl = "https://evening-anchorage-50670.herokuapp.com/cellar"
+    static let kCellarAPIBaseUrl = "https://evening-anchorage-50670.herokuapp.com/cellar"
     
-    class func logInUserWithToken(token: String, completion:(success: Bool) -> ()) {
-        //make API call to log in
-        // if success
-        //completion(success: true)
-        //else
-        completion(success: false)
+    class func logInUserWithToken(username: String, password: String, completion:(success: Bool, response: NSData?) -> ()) {
+        let urlString = self.kCellarAPIBaseUrl + "/signin"
+        guard let url = NSURL(string: urlString) where username.characters.count > 0 && password.characters.count > 0 else {
+            completion(success: false, response: nil)
+            return
+        }
+        let request = NSMutableURLRequest(URL: url)
+        request.setValue("\(username)", forHTTPHeaderField: "username")
+        request.setValue("\(password)", forHTTPHeaderField: "password")
+        NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) -> Void in
+            if let response = response as? NSHTTPURLResponse {
+                print(response.statusCode)
+            }
+            if let error = error {
+                print("Error: \(error.localizedFailureReason)")
+            }
+            if let data = data {
+                completion(success: true, response: data)
+            } else {
+                completion(success: false, response: nil)
+            }
+        }.resume()
     }
     
     class func signUpUserWithUsername(username: String, password: String, completion: (success: Bool, response: NSData?) -> ()) {
-        let urlString = self.cellarAPIBaseUrl + "/signup"
+        let urlString = self.kCellarAPIBaseUrl + "/signup"
         guard let url = NSURL(string: urlString) where username.characters.count > 0 && password.characters.count > 0 else {
             completion(success: false, response: nil)
             return
@@ -39,7 +55,6 @@ class CellarAPIService {
                     print("Error: \(error.localizedFailureReason)")
                 }
                 if let dataResponse = data {
-                    print("Data response: \(dataResponse)")
                     completion(success: true, response: dataResponse)
                 } else {
                     completion(success: false, response: nil)

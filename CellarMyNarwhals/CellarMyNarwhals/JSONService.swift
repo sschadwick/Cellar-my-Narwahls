@@ -11,9 +11,15 @@ import Foundation
 class JSONService {
     
     class func jsonObjectFromSignupData(data: NSData) {
-        do {
-            guard let baseObject = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as? [String : AnyObject] else { return }
-            print(baseObject.description)
-        } catch {}
+        if let stringed = String(data: data, encoding: NSUTF8StringEncoding) {
+            print("It's a string : \(stringed)")
+        } else {
+            print("It's something else")
+        }
+        
+//        do {
+//            guard let baseObject = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as? [String : AnyObject] else { return }
+//            print(baseObject.description)
+//        } catch {}
     }
 }

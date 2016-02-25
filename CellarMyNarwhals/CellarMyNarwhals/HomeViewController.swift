@@ -16,10 +16,17 @@ class HomeViewController: UIViewController {
 //        CellarAPIService.signUpUserWithUsername("miles", password: "password") { (success) -> () in
 //            print("\(success ? "success" : "failure")")
 //        }
-        CellarAPIService.signUpUserWithUsername("miles", password: "password") { (success, response) -> () in
-            print("\(success ? "success" : "failure")")
-            if let dataResponse = response {
-                JSONService.jsonObjectFromSignupData(dataResponse)
+//        CellarAPIService.signUpUserWithUsername("miles", password: "password") { (success, response) -> () in
+//            print("\(success ? "success" : "failure")")
+//            if let dataResponse = response {
+//                JSONService.jsonObjectFromSignupData(dataResponse)
+//            }
+//        }
+        CellarAPIService.logInUserWithToken("miles", password: "password") { (success, response) -> () in
+            if success {
+                if let response = response {
+                    JSONService.jsonObjectFromSignupData(response)
+                }
             }
         }
         
