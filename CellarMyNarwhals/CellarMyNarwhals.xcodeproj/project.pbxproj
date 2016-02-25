@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		900884971C7F97E4004E48F9 /* JSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900884961C7F97E4004E48F9 /* JSONService.swift */; };
 		9010009A1C77A48400037B53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901000991C77A48400037B53 /* AppDelegate.swift */; };
 		9010009F1C77A48400037B53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9010009D1C77A48400037B53 /* Main.storyboard */; };
 		901000A11C77A48400037B53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 901000A01C77A48400037B53 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		900884961C7F97E4004E48F9 /* JSONService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONService.swift; sourceTree = "<group>"; };
 		901000961C77A48400037B53 /* CellarMyNarwhals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CellarMyNarwhals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		901000991C77A48400037B53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9010009E1C77A48400037B53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				901000B31C77A97D00037B53 /* KeychainService.swift */,
 				901000B61C77AC5F00037B53 /* CellarAPIService.swift */,
+				900884961C7F97E4004E48F9 /* JSONService.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				901000AF1C77A6E800037B53 /* LoginViewController.swift in Sources */,
 				901000B71C77AC5F00037B53 /* CellarAPIService.swift in Sources */,
 				901000B41C77A97D00037B53 /* KeychainService.swift in Sources */,
+				900884971C7F97E4004E48F9 /* JSONService.swift in Sources */,
 				9010009A1C77A48400037B53 /* AppDelegate.swift in Sources */,
 				901000B21C77A71300037B53 /* HomeViewController.swift in Sources */,
 			);
@@ -340,6 +344,7 @@
 				901000AA1C77A48400037B53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
