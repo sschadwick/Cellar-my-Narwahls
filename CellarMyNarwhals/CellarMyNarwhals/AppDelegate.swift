@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func checkUserLogin() {
-        guard let password = KeychainService.loadFromKeychain() else { return }
+//        guard let password = KeychainService.loadFromKeychain() else { return }
         
     }
 

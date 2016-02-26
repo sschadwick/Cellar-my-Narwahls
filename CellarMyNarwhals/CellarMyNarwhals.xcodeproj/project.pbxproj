@@ -16,6 +16,7 @@
 		901000B21C77A71300037B53 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901000B11C77A71300037B53 /* HomeViewController.swift */; };
 		901000B41C77A97D00037B53 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901000B31C77A97D00037B53 /* KeychainService.swift */; };
 		901000B71C77AC5F00037B53 /* CellarAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901000B61C77AC5F00037B53 /* CellarAPIService.swift */; };
+		90D5608B1C8013230087EE12 /* CellarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D5608A1C8013230087EE12 /* CellarItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		901000B11C77A71300037B53 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		901000B31C77A97D00037B53 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		901000B61C77AC5F00037B53 /* CellarAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellarAPIService.swift; sourceTree = "<group>"; };
+		90D5608A1C8013230087EE12 /* CellarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellarItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				901000B31C77A97D00037B53 /* KeychainService.swift */,
+				90D5608A1C8013230087EE12 /* CellarItem.swift */,
 				901000B61C77AC5F00037B53 /* CellarAPIService.swift */,
 				900884961C7F97E4004E48F9 /* JSONService.swift */,
 			);
@@ -187,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90D5608B1C8013230087EE12 /* CellarItem.swift in Sources */,
 				901000AF1C77A6E800037B53 /* LoginViewController.swift in Sources */,
 				901000B71C77AC5F00037B53 /* CellarAPIService.swift in Sources */,
 				901000B41C77A97D00037B53 /* KeychainService.swift in Sources */,
