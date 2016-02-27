@@ -20,10 +20,12 @@ class CellarAPIService {
         }
         let request = NSMutableURLRequest(URL: url)
         let headerValue = "Basic \(username):\(password)"
-        request.setValue("\(String.toBase64(headerValue))", forHTTPHeaderField: "authorization")
-        print("\(request.allHTTPHeaderFields)")
-        print("encoded: \(String.toBase64(headerValue))")
-        print("decoded: \(String.fromBase64(String.toBase64(headerValue)))")
+        if let encoded = String.toBase64(headerValue), decoded = String.fromBase64(encoded) {
+            print("encoded: \(encoded)")
+            print("decoded: \(decoded)")
+            request.setValue("\(encoded)", forHTTPHeaderField: "authorization")
+            print("\(request.allHTTPHeaderFields)")
+        }
         NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) -> Void in
             if let response = response as? NSHTTPURLResponse {
                 print(response.statusCode)

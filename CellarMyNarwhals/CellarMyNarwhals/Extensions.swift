@@ -10,17 +10,17 @@ import Foundation
 
 extension String {
     
-    static func toBase64(string: String) -> String {
+    static func toBase64(string: String) -> String? {
         guard let encodedData = string.dataUsingEncoding(NSUTF8StringEncoding) else {
-            return string
+            return nil
         }
         let encodedString = NSData(data: encodedData).base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
         return encodedString
     }
     
-    static func fromBase64(string: String) -> String {
+    static func fromBase64(string: String) -> String? {
         guard let decodedData = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters), decodedString = String(data: decodedData, encoding: NSUTF8StringEncoding) else {
-            return string
+            return nil
         }
         return decodedString
     }
