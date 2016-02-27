@@ -19,19 +19,11 @@ class CellarAPIService {
             return
         }
         let request = NSMutableURLRequest(URL: url)
-        let headerValue = "\(username):\(password)"
-        guard let encodedString = headerValue.dataUsingEncoding(NSUTF8StringEncoding) else {
-            completion(success: false, response: nil)
-            return
-        }
-        let headerData = NSData(data: encodedString).base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
-//        request.setValue("\(username)", forHTTPHeaderField: "username")
-//        request.setValue("\(password)", forHTTPHeaderField: "password")
-        request.setValue("Basic \(headerData)", forHTTPHeaderField: "authorization")
-//        print("encoded: \(headerData)")
-//        guard let decodedData = NSData(base64EncodedString: headerData, options:.IgnoreUnknownCharacters) else { return }
-//        let decodedString = String(data: decodedData, encoding: NSUTF8StringEncoding)
-//        print("decoded: \(decodedString)")
+        let headerValue = "Basic \(username):\(password)"
+        request.setValue("\(String.toBase64(headerValue))", forHTTPHeaderField: "authorization")
+        print("\(request.allHTTPHeaderFields)")
+        print("encoded: \(String.toBase64(headerValue))")
+        print("decoded: \(String.fromBase64(String.toBase64(headerValue)))")
         NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) -> Void in
             if let response = response as? NSHTTPURLResponse {
                 print(response.statusCode)
