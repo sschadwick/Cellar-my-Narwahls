@@ -12,18 +12,18 @@ class CellarAPIService {
     
     static let kCellarAPIBaseUrl = "https://evening-anchorage-50670.herokuapp.com/cellar"
     
-    class func logInUserWithToken(username: String, password: String, completion:(success: Bool, response: NSData?) -> ()) {
+    class func logInUserWithUsername(username: String, password: String, completion:(success: Bool, response: NSData?) -> ()) {
         let urlString = self.kCellarAPIBaseUrl + "/signin"
         guard let url = NSURL(string: urlString) where username.characters.count > 0 && password.characters.count > 0 else {
             completion(success: false, response: nil)
             return
         }
         let request = NSMutableURLRequest(URL: url)
-        let headerValue = "Basic \(username):\(password)"
+        let headerValue = "\(username):\(password)"
         if let encoded = String.toBase64(headerValue), decoded = String.fromBase64(encoded) {
             print("encoded: \(encoded)")
             print("decoded: \(decoded)")
-            request.setValue("\(encoded)", forHTTPHeaderField: "authorization")
+            request.setValue("Basic \(encoded)", forHTTPHeaderField: "authorization")
             print("\(request.allHTTPHeaderFields)")
         }
         NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) -> Void in

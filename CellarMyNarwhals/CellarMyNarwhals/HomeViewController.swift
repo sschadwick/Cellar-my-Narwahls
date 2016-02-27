@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
 //            }
 //        }
         
-        CellarAPIService.logInUserWithToken("miles", password: "password") { (success, response) -> () in
+        CellarAPIService.logInUserWithUsername("miles", password: "password") { (success, response) -> () in
             if success {
                 if let response = response {
                     JSONService.jsonObjectFromSignupData(response)
