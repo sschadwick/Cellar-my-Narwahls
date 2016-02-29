@@ -13,19 +13,19 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        CellarAPIService.signUpUserWithUsername("miles", password: "password") { (success, response) -> () in
-//            if let dataResponse = response {
-//                JSONService.jsonObjectFromSignupData(dataResponse)
-//            }
-//        }
-        
-        CellarAPIService.logInUserWithUsername("miles", password: "password") { (success, response) -> () in
-            if success {
-                if let response = response {
-                    JSONService.jsonObjectFromSignupData(response)
-                }
+        CellarAPIService.signUpUserWithUsername("ausernamedmiles", password: "123pw123") { (success, response) -> () in
+            if let dataResponse = response {
+                JSONService.jsonObjectFromSignupData(dataResponse)
             }
         }
+        
+//        CellarAPIService.logInUserWithUsername("miles", password: "password") { (success, response) -> () in
+//            if success {
+//                if let response = response {
+//                    JSONService.jsonObjectFromSignupData(response)
+//                }
+//            }
+//        }
         
     }
     
