@@ -15,8 +15,7 @@ describe('items', function() {
   before(function(done) {
     var testItem = new Item({
       itemName: 'Michelob',
-      vintage: '10 days',
-      quantity: 2
+      vintage: '10 days'
     });
     testItem.save(function(err, data) {
       dummyId = data._id;
@@ -45,7 +44,6 @@ describe('items', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(typeof res.body.msg).to.eql('object');
-      console.log(res.body.msg)
       done();
     });
   });
@@ -55,10 +53,8 @@ describe('items', function() {
     .post('/items')
     .set({token: this.token})
     .send({
-      _id: 1,
       itemName: 'Bourbon County',
-      vintage: '2014',
-      quantity: 4
+      vintage: '2014'
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -72,10 +68,8 @@ describe('items', function() {
     .put('/items/' + dummyId)
     .set({token: this.token})
     .send({
-      _id: 1,
       itemName: 'Michelob',
-      vintage: '10 days',
-      quantity: 12
+      vintage: '5 years'
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -91,19 +85,6 @@ describe('items', function() {
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.msg).to.eql('deleted');
-      done();
-    });
-  });
-});
-
-describe('Stats', function() {
-  it('should return a count of total items and users', function(done) {
-    chai.request(serverURL)
-    .get('/stats')
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(typeof res.body.msg.itemCount).to.eql('number');
-      expect(typeof res.body.msg.userCount).to.eql('number');
       done();
     });
   });

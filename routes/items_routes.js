@@ -19,18 +19,27 @@ itemsRoute.get('/items', eatauth, function(req, res) {
   });
 });
 
+/*
+Adding an item:
+
+Check if item is currently in system, if so then add a pointer to item in users inventory.
+If item isn't in system yet, then create a new item in the item db.
+
+Item is going to be fully populated by a commericial api call on the front-end
+
+*/
+
 itemsRoute.post('/items', jsonParser, eatauth, function(req, res) {
-  var item = {};
-  item.owner = req.user.username;
-  item.itemName = req.body.itemName;
-  item.vintage = req.body.vintage;
-  item.quantity = req.body.quantity;
+  var item = req.body;
   var newItem = new Item(item);
   newItem.save(function(err, data) {
     if (err) return handleError.err500(err, res);
     responseHandler.send201(res, data);
   });
 });
+
+// Do I need an update function if the items are going to be populated from an API call?
+// This could be consolidated to simply changing the users own quantity
 
 itemsRoute.put('/items/:id', jsonParser, eatauth, function(req, res) {
   var updateItem = req.body;
@@ -47,29 +56,11 @@ itemsRoute.put('/items/:id', jsonParser, eatauth, function(req, res) {
   });
 });
 
+// Delete could remove the item from the users inventory completely
+
 itemsRoute.delete('/items/:id', jsonParser, eatauth, function(req, res) {
   Item.remove({_id: req.params.id}, function(err) {
     if (err) return handleError.err500(err, res);
     responseHandler.send200(res, 'deleted');
-  });
-});
-
-itemsRoute.get('/stats', function(req, res) {
-  var itemCount;
-  var userCount;
-
-  Item.find({}, function(err, items) {
-    if (err) handleError.err500(err, res);
-    itemCount = items.length;
-
-    User.find({}, function(err, users) {
-      if (err) handleError.err500(err, res);
-      userCount = users.length;
-      var stats = {
-        itemCount: itemCount,
-        userCount: userCount
-      };
-      responseHandler.send200(res, stats);
-    });
   });
 });
