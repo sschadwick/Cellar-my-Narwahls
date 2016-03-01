@@ -33,3 +33,4 @@ db
 npm-debug.log
 build
 test/**/*/test_bundle.js
+*.xcuserdatad
