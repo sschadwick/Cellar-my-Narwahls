@@ -52,6 +52,7 @@ class CellarAPIService {
             request.HTTPMethod = "POST"
             let bodyParameters = ["username" : "\(username)", "password" : "\(password)"]
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(bodyParameters, options: .PrettyPrinted) as NSData
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
                 if let httpResponse = response as? NSHTTPURLResponse {
                     print(httpResponse.statusCode)
