@@ -8,7 +8,15 @@
 
 import UIKit
 
+typealias loginViewControllerCompletion = () -> ()
+
 class LoginViewController: UIViewController {
+    
+    var completion: loginViewControllerCompletion?
+    
+    class func identifier() -> String {
+        return "LoginViewController"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
