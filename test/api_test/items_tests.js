@@ -38,13 +38,14 @@ describe('items', function() {
     }.bind(this));
   });
 
-  it('should be able to get a list of all items', function(done) {
+  it('should be able to get a list of all users items', function(done) {
     chai.request(serverURL)
     .get('/items')
     .set({token: this.token})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(typeof res.body.msg).to.eql('object');
+      console.log(res.body.msg)
       done();
     });
   });

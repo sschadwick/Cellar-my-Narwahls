@@ -22,7 +22,14 @@ var userSchema = new mongoose.Schema({
     }
   },
   email: String,
-  token: String
+  token: String,
+  // TODO figure out how to store multiple pointers
+  items: {
+    itemId: {
+      type: String
+    },
+    quantity: Number
+  }
 });
 
 userSchema.methods.generateHash = function(password, callback) {

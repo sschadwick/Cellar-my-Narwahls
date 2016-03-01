@@ -13,7 +13,7 @@ var httpBasic = require(__dirname + '/../lib/http_basic');
 var itemsRoute = module.exports = exports = express.Router();
 
 itemsRoute.get('/items', eatauth, function(req, res) {
-  Item.find({owner: req.user.username}, function(err, items) {
+  User.findOne({username: req.user.username}, {items: 1}, function(err, items) {
     if (err) return handleError.err500(err, res);
     responseHandler.send200(res, items);
   });
