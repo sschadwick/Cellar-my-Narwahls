@@ -74,12 +74,12 @@ describe('items', function() {
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.msg.items[0].qty).to.eql(4);
+      expect(res.body.msg[0].qty).to.eql(4);
       done();
     });
   });
 
-  it('should be able to update an item', function(done) {
+  it('should be able to update an item quantity in User inventory', function(done) {
     chai.request(serverURL)
     .put('/items/' + 12345)
     .set({token: this.token})
@@ -88,14 +88,14 @@ describe('items', function() {
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.msg.items[0].qty).to.eql(20);
+      expect(res.body.msg.qty).to.eql(20);
       done();
     });
   });
 
-  it('should be able to remove an item', function(done) {
+  it('should be able to remove an item completely from User inventory', function(done) {
     chai.request(serverURL)
-    .delete('/items/' + dummyId)
+    .delete('/items/' + 12345)
     .set({token: this.token})
     .end(function(err, res) {
       expect(err).to.eql(null);
