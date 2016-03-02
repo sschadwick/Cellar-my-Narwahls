@@ -23,10 +23,6 @@ var userSchema = new mongoose.Schema({
   },
   email: String,
   token: String,
-
-  // array of objects, stores item id pointer and qty owned
-  // [{upc: '123135', qty: 15}, {...}]
-
   items: {
     type: Array
   }

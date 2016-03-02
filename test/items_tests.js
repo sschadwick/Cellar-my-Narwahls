@@ -49,9 +49,9 @@ describe('items', function() {
     });
   });
 
-  it('should be able to add an item', function(done) {
+  it('should be able to create a new item in Item DB', function(done) {
     chai.request(serverURL)
-    .post('/items')
+    .post('/create')
     .set({token: this.token})
     .send({
       itemName: 'Bourbon County',
@@ -64,17 +64,31 @@ describe('items', function() {
     });
   });
 
-  it('should be able to update an item', function(done) {
+  it ('should be able to add an item to User inventory', function(done) {
     chai.request(serverURL)
-    .put('/items/' + dummyId)
+    .post('/items')
     .set({token: this.token})
     .send({
-      itemName: 'Michelob',
-      vintage: '5 years'
+      itemID: 12345,
+      qty: 4
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.msg).to.eql('updated');
+      expect(res.body.msg.items[0].qty).to.eql(4);
+      done();
+    });
+  });
+
+  it('should be able to update an item', function(done) {
+    chai.request(serverURL)
+    .put('/items/' + 12345)
+    .set({token: this.token})
+    .send({
+      qty: 20
+    })
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.msg.items[0].qty).to.eql(20);
       done();
     });
   });
