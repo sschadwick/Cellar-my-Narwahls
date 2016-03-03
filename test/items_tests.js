@@ -11,17 +11,7 @@ var Item = require(__dirname + '/../models/item');
 var User = require(__dirname + '/../models/user');
 
 describe('items', function() {
-  var dummyId;
   before(function(done) {
-    var testItem = new Item({
-      itemName: 'Michelob',
-      vintage: '10 days',
-      upc: '123125'
-    });
-    testItem.save(function(err, data) {
-      dummyId = data._id;
-    });
-
     var user = new User();
     user.username = 'test';
     user.basic.username = 'test';
