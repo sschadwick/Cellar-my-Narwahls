@@ -11,6 +11,10 @@
 		9010009F1C77A48400037B53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9010009D1C77A48400037B53 /* Main.storyboard */; };
 		901000A11C77A48400037B53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 901000A01C77A48400037B53 /* Assets.xcassets */; };
 		901000A41C77A48400037B53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 901000A21C77A48400037B53 /* LaunchScreen.storyboard */; };
+		901000AF1C77A6E800037B53 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901000AE1C77A6E800037B53 /* LoginViewController.swift */; };
+		901000B21C77A71300037B53 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901000B11C77A71300037B53 /* HomeViewController.swift */; };
+		901000B41C77A97D00037B53 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901000B31C77A97D00037B53 /* KeychainService.swift */; };
+		901000B71C77AC5F00037B53 /* CellarAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901000B61C77AC5F00037B53 /* CellarAPIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +24,10 @@
 		901000A01C77A48400037B53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		901000A31C77A48400037B53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		901000A51C77A48400037B53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		901000AE1C77A6E800037B53 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		901000B11C77A71300037B53 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		901000B31C77A97D00037B53 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		901000B61C77AC5F00037B53 /* CellarAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellarAPIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				901000AD1C77A4C800037B53 /* App */,
+				901000B01C77A6F100037B53 /* Controller */,
+				901000B51C77A98500037B53 /* Model */,
 				901000AC1C77A4C400037B53 /* View */,
 				901000AB1C77A4BA00037B53 /* Supporting Files */,
 			);
@@ -83,6 +93,24 @@
 				901000991C77A48400037B53 /* AppDelegate.swift */,
 			);
 			name = App;
+			sourceTree = "<group>";
+		};
+		901000B01C77A6F100037B53 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				901000AE1C77A6E800037B53 /* LoginViewController.swift */,
+				901000B11C77A71300037B53 /* HomeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		901000B51C77A98500037B53 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				901000B31C77A97D00037B53 /* KeychainService.swift */,
+				901000B61C77AC5F00037B53 /* CellarAPIService.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,7 +184,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				901000AF1C77A6E800037B53 /* LoginViewController.swift in Sources */,
+				901000B71C77AC5F00037B53 /* CellarAPIService.swift in Sources */,
+				901000B41C77A97D00037B53 /* KeychainService.swift in Sources */,
 				9010009A1C77A48400037B53 /* AppDelegate.swift in Sources */,
+				901000B21C77A71300037B53 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
