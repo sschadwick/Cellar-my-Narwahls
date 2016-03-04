@@ -26,12 +26,16 @@ A GET request to /items will return all of the items belonging to the logged in 
 
 #### POST server/cellar/create
 This route is used to create a new item in the item database. It is expecting a fully populated JSON object.
+It will return the newly created item.
 
 #### POST server/cellar/items
 This will add the item to the user's inventory. Send JSON {'itemID': 12345, 'qty': 5}
+It will return an updated list of users inventory.
 
 #### PUT server/cellar/items/:id
 This will update the quantity of the id of the item listed above. Send JSON {'qty': 20}
+It will return the newly updated item with updated qty.
 
 #### DELETE server/cellar/items/:id
 This removes the item with the matching id from the user's inventory.
+It will return {'msg': 'deleted'}
