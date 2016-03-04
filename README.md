@@ -6,11 +6,11 @@ Cellar my Narwahls is a cellar management service, aimed at helping people to ma
 
 ## User API
 
-#### Signup
-The User API is used to authenticate the user. First, send a POST containing JSON {'username': 'admin', : 'password': 'foobar123'} to server/cellar/signup. The server will create the user and return an encrypted authentication token.
+#### POST server/cellar/signup
+The User API is used to authenticate the user. First, send a POST containing JSON {'username': 'admin', : 'password': 'foobar123'} to server/cellar/signup. The server will create the user and return an encrypted token.
 
-#### Signin
-To signin, send a GET request to server/cellar/signin with Basic authorication headers. If signin is successful, the server will return an encrypted token.
+#### GET server/cellar/signin
+To signin, send a GET request to server/cellar/signin with Basic authorization headers. If signin is successful, the server will return an encrypted token.
 
 Example:
 headers: {
