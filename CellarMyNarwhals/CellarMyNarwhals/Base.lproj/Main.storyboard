@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -16,8 +17,62 @@
                     <view key="view" contentMode="scaleToFill" id="IBf-EI-ol3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qW9-ry-ef2">
+                                <rect key="frame" x="272.5" y="432" width="55" height="30"/>
+                                <state key="normal" title="Go"/>
+                                <connections>
+                                    <action selector="goButtonPressed:" destination="gPi-ol-L4y" eventType="touchUpInside" id="NtB-kL-0CQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Drg-oG-LxZ">
+                                <rect key="frame" x="272.5" y="470" width="55" height="30"/>
+                                <state key="normal" title="Sign Up"/>
+                                <connections>
+                                    <action selector="signUpButtonPressed:" destination="gPi-ol-L4y" eventType="touchUpInside" id="sBm-VW-GQs"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iDi-yV-Qx1">
+                                <rect key="frame" x="120.5" y="318" width="360" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vVZ-mh-BYN">
+                                <rect key="frame" x="120.5" y="356" width="360" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FA8-Yv-Mnj">
+                                <rect key="frame" x="120.5" y="394" width="360" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Drg-oG-LxZ" firstAttribute="top" secondItem="qW9-ry-ef2" secondAttribute="bottom" constant="8" id="0el-k7-3Qo"/>
+                            <constraint firstItem="vVZ-mh-BYN" firstAttribute="top" secondItem="iDi-yV-Qx1" secondAttribute="bottom" constant="8" id="7no-p8-xt1"/>
+                            <constraint firstItem="iDi-yV-Qx1" firstAttribute="centerX" secondItem="vVZ-mh-BYN" secondAttribute="centerX" id="7ps-nX-8Pl"/>
+                            <constraint firstItem="qW9-ry-ef2" firstAttribute="centerX" secondItem="Drg-oG-LxZ" secondAttribute="centerX" id="8kj-Jc-P34"/>
+                            <constraint firstItem="Drg-oG-LxZ" firstAttribute="centerX" secondItem="IBf-EI-ol3" secondAttribute="centerX" id="G20-wh-KbB"/>
+                            <constraint firstItem="iDi-yV-Qx1" firstAttribute="width" secondItem="vVZ-mh-BYN" secondAttribute="width" id="Ip9-sD-9Bb"/>
+                            <constraint firstItem="FA8-Yv-Mnj" firstAttribute="top" secondItem="vVZ-mh-BYN" secondAttribute="bottom" constant="8" id="MSS-mA-iZG"/>
+                            <constraint firstItem="vVZ-mh-BYN" firstAttribute="centerX" secondItem="FA8-Yv-Mnj" secondAttribute="centerX" id="Uld-7g-y8A"/>
+                            <constraint firstItem="qW9-ry-ef2" firstAttribute="top" secondItem="FA8-Yv-Mnj" secondAttribute="bottom" constant="8" id="a03-w1-bFj"/>
+                            <constraint firstItem="qv8-JQ-hDH" firstAttribute="top" secondItem="Drg-oG-LxZ" secondAttribute="bottom" constant="100" id="ctY-Dn-ZY2"/>
+                            <constraint firstItem="FA8-Yv-Mnj" firstAttribute="width" secondItem="IBf-EI-ol3" secondAttribute="width" multiplier="0.6" id="mQw-iT-Gkh"/>
+                            <constraint firstItem="qW9-ry-ef2" firstAttribute="width" secondItem="Drg-oG-LxZ" secondAttribute="width" id="nwR-4e-Ug5"/>
+                            <constraint firstItem="vVZ-mh-BYN" firstAttribute="width" secondItem="FA8-Yv-Mnj" secondAttribute="width" id="xLn-hT-b0a"/>
+                            <constraint firstItem="FA8-Yv-Mnj" firstAttribute="centerX" secondItem="qW9-ry-ef2" secondAttribute="centerX" id="zts-ed-3c6"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="FA8-Yv-Mnj" id="R5K-rc-D0V"/>
+                        <outlet property="goButton" destination="qW9-ry-ef2" id="Xi0-Rz-Clr"/>
+                        <outlet property="passwordTextField" destination="vVZ-mh-BYN" id="ZuT-cp-Kw2"/>
+                        <outlet property="signUpButton" destination="Drg-oG-LxZ" id="IGY-XJ-9WD"/>
+                        <outlet property="usernameTextField" destination="iDi-yV-Qx1" id="nFL-13-KPq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="22L-pB-AaN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

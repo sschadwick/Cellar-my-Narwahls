@@ -12,7 +12,16 @@ typealias loginViewControllerCompletion = () -> ()
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var goButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
+    
+    
     var completion: loginViewControllerCompletion?
+    
+    var loginMode = true
     
     class func identifier() -> String {
         return "LoginViewController"
@@ -20,6 +29,12 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    @IBAction func goButtonPressed(sender: UIButton) {
+    }
+    
+    @IBAction func signUpButtonPressed(sender: UIButton) {
     }
 
 }
