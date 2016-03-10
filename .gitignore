@@ -33,7 +33,7 @@ db
 npm-debug.log
 build
 test/**/*/test_bundle.js
-
+*.xcuserdatad
 
 # Created by https://www.gitignore.io/api/xcode,swift,objective-c
 

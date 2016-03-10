@@ -3,9 +3,10 @@ var mongoose = require('mongoose');
 var itemSchema = new mongoose.Schema({
   itemName: String,
   vintage: String,
-  quantity: Number,
   upc: String,
-  owner: String
+  style: String,
+  description: String,
+  picture: Object
 });
 
 module.exports = mongoose.model('Item', itemSchema);

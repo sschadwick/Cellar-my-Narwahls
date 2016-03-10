@@ -13,18 +13,20 @@ var httpBasic = require(__dirname + '/../lib/http_basic');
 var itemsRoute = module.exports = exports = express.Router();
 
 itemsRoute.get('/items', eatauth, function(req, res) {
-  Item.find({owner: req.user.username}, function(err, items) {
+  User.findOne({username: req.user.username}, {items: 1}, function(err, items) {
     if (err) return handleError.err500(err, res);
     responseHandler.send200(res, items);
   });
 });
 
-itemsRoute.post('/items', jsonParser, eatauth, function(req, res) {
-  var item = {};
-  item.owner = req.user.username;
-  item.itemName = req.body.itemName;
-  item.vintage = req.body.vintage;
-  item.quantity = req.body.quantity;
+/*
+Adding an item:
+Check if item is currently in system, if so then add a pointer to item in users inventory.
+If item isn't in system yet, then create a new item in the item db.
+*/
+
+itemsRoute.post('/create', jsonParser, eatauth, function(req, res) {
+  var item = req.body;
   var newItem = new Item(item);
   newItem.save(function(err, data) {
     if (err) return handleError.err500(err, res);
@@ -32,44 +34,36 @@ itemsRoute.post('/items', jsonParser, eatauth, function(req, res) {
   });
 });
 
-itemsRoute.put('/items/:id', jsonParser, eatauth, function(req, res) {
-  var updateItem = req.body;
-  delete updateItem._id;
+itemsRoute.post('/items', jsonParser, eatauth, function(req, res) {
+  User.findOne({username: req.user.username}, {items: 1}, function(err, user) {
+    user.items.push(req.body);
+    user.save(function(err, data) {
+      if (err) return handleError.err500(err, res);
+      responseHandler.send201(res, data.items);
+    });
+  });
+});
 
-  Item.findOne({_id: req.params.id}, function(err, data) {
-    if (err) return handleError.err500(err, res);
-    data.itemName = updateItem.itemName;
-    data.vintage = updateItem.vintage;
-    data.quantity = updateItem.quantity;
-    data.upc = updateItem.upc;
-    data.save();
-    res.json({msg: 'updated'});
+itemsRoute.put('/items/:id', jsonParser, eatauth, function(req, res) {
+  User.findOne({username: req.user.username}, {items: 1}, function(err, user) {
+    for (var i in user.items) {
+      if (user.items[i].itemID == req.params.id) {
+        user.items[i].qty = req.body.qty;
+        user.save();
+        responseHandler.send201(res, user.items[i]);
+      }
+    }
   });
 });
 
 itemsRoute.delete('/items/:id', jsonParser, eatauth, function(req, res) {
-  Item.remove({_id: req.params.id}, function(err) {
-    if (err) return handleError.err500(err, res);
-    responseHandler.send200(res, 'deleted');
-  });
-});
-
-itemsRoute.get('/stats', function(req, res) {
-  var itemCount;
-  var userCount;
-
-  Item.find({}, function(err, items) {
-    if (err) handleError.err500(err, res);
-    itemCount = items.length;
-
-    User.find({}, function(err, users) {
-      if (err) handleError.err500(err, res);
-      userCount = users.length;
-      var stats = {
-        itemCount: itemCount,
-        userCount: userCount
-      };
-      responseHandler.send200(res, stats);
-    });
+  User.findOne({username: req.user.username}, {items: 1}, function(err, user) {
+    for (var i in user.items) {
+      if (user.items[i].itemID == req.params.id) {
+        delete user.items[i];
+        user.save();
+        responseHandler.send200(res, 'deleted');
+      }
+    }
   });
 });

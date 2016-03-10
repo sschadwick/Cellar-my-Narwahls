@@ -22,7 +22,10 @@ var userSchema = new mongoose.Schema({
     }
   },
   email: String,
-  token: String
+  token: String,
+  items: {
+    type: Array
+  }
 });
 
 userSchema.methods.generateHash = function(password, callback) {
