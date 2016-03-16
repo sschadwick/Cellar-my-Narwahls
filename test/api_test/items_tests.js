@@ -11,17 +11,7 @@ var Item = require(__dirname + '/../../models/item');
 var User = require(__dirname + '/../../models/user');
 
 describe('items', function() {
-  var dummyId;
   before(function(done) {
-    var testItem = new Item({
-      itemName: 'Michelob',
-      vintage: '10 days',
-      quantity: 2
-    });
-    testItem.save(function(err, data) {
-      dummyId = data._id;
-    });
-
     var user = new User();
     user.username = 'test';
     user.basic.username = 'test';
@@ -38,7 +28,14 @@ describe('items', function() {
     }.bind(this));
   });
 
-  it('should be able to get a list of all items', function(done) {
+  after(function(done) {
+    mongoose.connection.db.dropDatabase(function(err) {
+      if (err) throw err;
+      done();
+    });
+  });
+
+  it('should be able to get a list of all users items', function(done) {
     chai.request(serverURL)
     .get('/items')
     .set({token: this.token})
@@ -49,15 +46,13 @@ describe('items', function() {
     });
   });
 
-  it('should be able to add an item', function(done) {
+  it('should be able to create a new item in Item DB', function(done) {
     chai.request(serverURL)
-    .post('/items')
+    .post('/create')
     .set({token: this.token})
     .send({
-      _id: 1,
       itemName: 'Bourbon County',
-      vintage: '2014',
-      quantity: 4
+      vintage: '2014'
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
@@ -66,43 +61,42 @@ describe('items', function() {
     });
   });
 
-  it('should be able to update an item', function(done) {
+  it ('should be able to add an item to User inventory', function(done) {
     chai.request(serverURL)
-    .put('/items/' + dummyId)
+    .post('/items')
     .set({token: this.token})
     .send({
-      _id: 1,
-      itemName: 'Michelob',
-      vintage: '10 days',
-      quantity: 12
+      itemID: 12345,
+      qty: 4
     })
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.msg).to.eql('updated');
+      expect(res.body.msg[0].qty).to.eql(4);
       done();
     });
   });
 
-  it('should be able to remove an item', function(done) {
+  it('should be able to update an item quantity in User inventory', function(done) {
     chai.request(serverURL)
-    .delete('/items/' + dummyId)
+    .put('/items/' + 12345)
+    .set({token: this.token})
+    .send({
+      qty: 20
+    })
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.msg.qty).to.eql(20);
+      done();
+    });
+  });
+
+  it('should be able to remove an item completely from User inventory', function(done) {
+    chai.request(serverURL)
+    .delete('/items/' + 12345)
     .set({token: this.token})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.msg).to.eql('deleted');
-      done();
-    });
-  });
-});
-
-describe('Stats', function() {
-  it('should return a count of total items and users', function(done) {
-    chai.request(serverURL)
-    .get('/stats')
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(typeof res.body.msg.itemCount).to.eql('number');
-      expect(typeof res.body.msg.userCount).to.eql('number');
       done();
     });
   });

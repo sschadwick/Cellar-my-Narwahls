@@ -74,20 +74,4 @@ describe('auth', function() {
     });
   });
 
-  describe('username must be unique', function() {
-    it('should return an error', function(done) { //add new user to database before tests
-      var user = new User();
-      user.username = 'testuser2'; //this user should already exist according to signup route
-      user.basic.username = 'testuser2';
-      user.generateHash('foobar123', function(err, res) {
-        if (err) throw err;
-        user.save(function(err, data) {
-          expect(err.code).to.eql(11000); //err code key already exists in db
-          done();
-        }.bind(this));
-      }.bind(this));
-    });
-  });
-
 });
-
