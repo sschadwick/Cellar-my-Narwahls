@@ -1,0 +1,10 @@
+<form data-ng-submit="save({item: item})">
+  <label>
+    <p>{{labelText}}</p>
+    <input type="text" placeholder="Item name" data-ng-model="item.itemName">
+    <input type="text" placeholder="Vintage" data-ng-model="item.vintage">
+    <input type="number" placeholder="Quantity" data-ng-model="item.quantity">
+    <input type="text" placeholder="UPC" data-ng-model="item.upc">
+  </label><br/>
+  <button type="submit">{{buttonText}}</button>
+</form>
