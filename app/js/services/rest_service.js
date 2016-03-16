@@ -22,6 +22,11 @@ module.exports = function(app) {
     };
 
     Resource.prototype.create = function(resource, callback) {
+      $http.post('/cellar/create', resource)
+        .then(handleSuccess(callback), handleFailure(callback));
+    };
+
+    Resource.prototype.add = function(resource, callback) {
       $http.post('/cellar/' + this.resourceName, resource)
         .then(handleSuccess(callback), handleFailure(callback));
     };
@@ -32,7 +37,7 @@ module.exports = function(app) {
     };
 
     Resource.prototype.remove = function(resource, callback) {
-      $http.delete('/cellar/items/' + resource._id)
+      $http.delete('/cellar/' + this.resourceName + '/' + resource._id)
         .then(handleSuccess(callback), handleFailure(callback));
     };
 

@@ -1,0 +1,28 @@
+<section data-ng-controller="CellarController" data-ng-init="getAll()">
+  <div data-bobsled title="Cellar App">{{description}}</div>
+  <div data-item-form save="createItem(item)"
+       data-item="newItem"
+       data-label-text="Create a new item:"
+       data-button-text="Add Item">
+  </div>
+  <ul id="itemsList">
+    <li class="{{item.status}}" data-ng-repeat="item in items">
+      <span data-ng-if="!item.editing">Item: {{item.itemName}}<br/>
+      Vintage: {{item.vintage}}<br/>
+      Style: {{item.style}}<br/>
+      Description: {{item.description | sentencify}}<br/>
+        <button data-ng-click="editItem(item)">Edit</button>
+        <button data-ng-click="removeItem(item)">Delete</button>
+      </span>
+    <div data-item-form
+         data-ng-if="item.editing"
+         data-label-text="Edit item"
+         data-button-text="Save Changes"
+         data-item="item"
+         data-save="updateItem(item)">
+    </div>
+    <button data-ng-if="item.editing" data-ng-click="cancelUpdate(item)">Cancel</button>
+
+    </li>
+  </ul>
+</section>
